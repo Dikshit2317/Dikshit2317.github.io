@@ -1,0 +1,7 @@
+INSERT INTO Parking_Area VALUES (1, 'Sector 17 Plaza Parking', 'Sector 17-C, Chandigarh', 1);
+INSERT INTO Parking_Area VALUES (2, 'Sector 22 Market Complex', 'Grain Market Rd, Sector 22', 2);
+INSERT INTO Parking_Area VALUES (3, 'Elante Mall Parking', 'Industrial Area Phase 1', 6);
+INSERT INTO Parking_Area VALUES (4, 'ISBT Sector 43', 'Inter State Bus Terminal, Sec 43', 4);
+INSERT INTO Parking_Area VALUES (5, 'PGI Hospital Parking', 'Sector 12, PGI Rd', 5);
+INSERT INTO Parking_Area VALUES (6, 'Sukhna Lake Parking', 'Sukhna Lake Rd, Sector 28', 8);
+INSERT INTO Parking_Area VALUES (7, 'Sector 35 Commercial Hub', 'Madhya Marg, Sector 35', 3);
