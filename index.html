@@ -6,6 +6,8 @@
 <title>ParkSmart</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
+* { box-sizing: border-box; }
+
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -26,6 +28,13 @@ header {
     letter-spacing: 1px;
 }
 
+/* ① Horizontal divider line below header */
+.header-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0,255,166,0.5), transparent);
+}
+
 .btn {
     padding: 10px 22px;
     border-radius: 12px;
@@ -35,11 +44,19 @@ header {
     background: #00ffa6;
     color: black;
     transition: 0.3s;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .btn:hover {
     transform: scale(1.05);
     box-shadow: 0 0 12px rgba(0,255,170,0.6);
+}
+
+.btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .center {
@@ -80,9 +97,7 @@ header {
     letter-spacing: -1px;
 }
 
-.gradient {
-    color: #00ffa6;
-}
+.gradient { color: #00ffa6; }
 
 .subtitle {
     max-width: 700px;
@@ -92,55 +107,230 @@ header {
     line-height: 1.6;
 }
 
-.book-btn {
-    margin-top: 30px;
-}
+.book-btn { margin-top: 30px; }
 
-/* Popup */
+/* Overlay */
 .popup {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75);
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 
 .popup-content {
     position: relative;
     background: #0f1a22;
-    padding: 30px;
-    border-radius: 15px;
-    width: 320px;
+    border: 1px solid rgba(0,255,166,0.15);
+    padding: 36px 30px 30px;
+    border-radius: 18px;
+    width: 340px;
     text-align: center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+
+.popup-content h3 {
+    margin: 0 0 20px;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 12px;
+    top: 12px; right: 16px;
     font-size: 22px;
     cursor: pointer;
-    color: white;
+    color: #a0aab3;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.close:hover { color: white; }
+
+/* ② Radio-style role cards — max 1 selection */
+.role-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
 }
 
+.role-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    user-select: none;
+}
+
+.role-card:hover {
+    border-color: rgba(0,255,166,0.4);
+    background: rgba(0,255,166,0.05);
+}
+
+.role-card.selected {
+    border-color: #00ffa6;
+    background: rgba(0,255,166,0.1);
+}
+
+.role-card input[type="radio"] { display: none; }
+
+.role-icon { font-size: 20px; width: 28px; text-align: center; }
+.role-label { font-weight: 600; font-size: 14px; }
+
+/* Select dropdowns */
 select {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 10px 12px;
+    margin: 8px 0;
     border-radius: 8px;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #162330;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    outline: none;
 }
 
-.checkbox-group label {
-    display: block;
-    margin: 10px 0;
-    cursor: pointer;
-    text-align: left;
+/* ③ Full-screen Auth Page */
+#authPage {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #0b1c24, #02060a);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
 }
+
+.auth-card {
+    background: #0f1a22;
+    border: 1px solid rgba(0,255,166,0.18);
+    border-radius: 20px;
+    padding: 40px 36px;
+    width: 360px;
+    box-shadow: 0 0 60px rgba(0,0,0,0.7);
+    text-align: center;
+}
+
+.auth-card .brand {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.role-badge {
+    display: inline-block;
+    background: rgba(0,255,166,0.12);
+    border: 1px solid rgba(0,255,166,0.35);
+    color: #00ffa6;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+}
+
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 24px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    background: none;
+    border: none;
+    color: #a0aab3;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+}
+
+.auth-tab.active {
+    color: #00ffa6;
+    border-bottom-color: #00ffa6;
+}
+
+.auth-form { display: none; }
+.auth-form.active { display: block; }
+
+.input-group {
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #a0aab3;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 11px 14px;
+    background: #162330;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 9px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: rgba(0,255,166,0.5);
+}
+
+.auth-submit {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    background: #00ffa6;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    transition: 0.3s;
+    letter-spacing: 0.5px;
+}
+
+.auth-submit:hover {
+    box-shadow: 0 0 16px rgba(0,255,170,0.55);
+    transform: scale(1.02);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 12px;
+    color: #a0aab3;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.back-link:hover { color: white; }
 </style>
 </head>
 <body>
@@ -149,6 +339,9 @@ select {
     <div class="logo">ParkSmart</div>
     <button class="btn" onclick="openAccessPopup()">Get Access →</button>
 </header>
+
+<!-- ① Line below header -->
+<div class="header-line"></div>
 
 <div class="center">
     <div class="live-box">
@@ -172,19 +365,31 @@ select {
     </div>
 </div>
 
-<!-- Get Access Popup -->
+<!-- ② Get Access Popup — radio cards -->
 <div class="popup" id="accessPopup">
     <div class="popup-content">
         <div class="close" onclick="closeAccessPopup()">&times;</div>
         <h3>Select User Type</h3>
 
-        <div class="checkbox-group">
-            <label><input type="checkbox"> Valet</label>
-            <label><input type="checkbox"> Staff</label>
-            <label><input type="checkbox"> Admin</label>
+        <div class="role-group">
+            <label class="role-card" onclick="selectRole(this)">
+                <input type="radio" name="userRole" value="Valet">
+                <span class="role-icon">🚗</span>
+                <span class="role-label">Valet</span>
+            </label>
+            <label class="role-card" onclick="selectRole(this)">
+                <input type="radio" name="userRole" value="Staff">
+                <span class="role-icon">👷</span>
+                <span class="role-label">Staff</span>
+            </label>
+            <label class="role-card" onclick="selectRole(this)">
+                <input type="radio" name="userRole" value="Admin">
+                <span class="role-icon">🛡️</span>
+                <span class="role-label">Admin</span>
+            </label>
         </div>
 
-        <button class="btn">Continue</button>
+        <button class="btn" id="continueBtn" onclick="goToAuth()" disabled>Continue →</button>
     </div>
 </div>
 
@@ -207,25 +412,95 @@ select {
             <option>Sector-34</option>
         </select>
 
-        <button class="btn">Search Slot</button>
+        <button class="btn" style="margin-top:12px; width:100%">Search Slot</button>
+    </div>
+</div>
+
+<!-- ③ Auth Page -->
+<div id="authPage">
+    <div class="auth-card">
+        <div class="brand">ParkSmart</div>
+        <div class="role-badge" id="authRoleBadge">Valet</div>
+
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchTab('signin')">Sign In</button>
+            <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- Sign In -->
+        <div class="auth-form active" id="signinForm">
+            <div class="input-group">
+                <label>User ID</label>
+                <input type="text" placeholder="Enter your ID">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="Enter your password">
+            </div>
+            <button class="auth-submit">Sign In</button>
+        </div>
+
+        <!-- Sign Up -->
+        <div class="auth-form" id="signupForm">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" placeholder="Your full name">
+            </div>
+            <div class="input-group">
+                <label>User ID</label>
+                <input type="text" placeholder="Choose a user ID">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="Create a password">
+            </div>
+            <button class="auth-submit">Create Account</button>
+        </div>
+
+        <div class="back-link" onclick="backToHome()">← Back to Home</div>
     </div>
 </div>
 
 <script>
-function openPopup() {
-    document.getElementById('popup').style.display = 'flex';
-}
+function openPopup() { document.getElementById('popup').style.display = 'flex'; }
+function closePopup() { document.getElementById('popup').style.display = 'none'; }
 
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-}
-
-function openAccessPopup() {
-    document.getElementById('accessPopup').style.display = 'flex';
-}
-
+function openAccessPopup() { document.getElementById('accessPopup').style.display = 'flex'; }
 function closeAccessPopup() {
     document.getElementById('accessPopup').style.display = 'none';
+    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('input[name="userRole"]').forEach(r => r.checked = false);
+    document.getElementById('continueBtn').disabled = true;
+}
+
+// ② Only 1 role selectable at a time
+function selectRole(card) {
+    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    card.querySelector('input[type="radio"]').checked = true;
+    document.getElementById('continueBtn').disabled = false;
+}
+
+// ③ Transition to auth page
+function goToAuth() {
+    const selected = document.querySelector('input[name="userRole"]:checked');
+    if (!selected) return;
+    document.getElementById('authRoleBadge').textContent = selected.value;
+    closeAccessPopup();
+    document.getElementById('authPage').style.display = 'flex';
+    switchTab('signin');
+}
+
+function backToHome() {
+    document.getElementById('authPage').style.display = 'none';
+}
+
+function switchTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach((t, i) => {
+        t.classList.toggle('active', (i === 0 && tab === 'signin') || (i === 1 && tab === 'signup'));
+    });
+    document.getElementById('signinForm').classList.toggle('active', tab === 'signin');
+    document.getElementById('signupForm').classList.toggle('active', tab === 'signup');
 }
 </script>
 
