@@ -1188,58 +1188,6 @@ tr:hover td { background: rgba(255,255,255,0.02); }
       </div>
     </div>
 
-    <!-- ── ALERTS ── -->
-    <div class="dash-section" id="sec-alerts">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Alerts & Notifications</div>
-          <div class="page-subtitle">System alerts and warnings</div>
-        </div>
-      </div>
-      <div class="alert-list">
-        <div class="alert-item danger">
-          <span class="alert-icon">🔴</span>
-          <div class="alert-text">
-            <div class="alert-title">Zone A near full capacity (92%)</div>
-            <div class="alert-sub">Only 6 slots remaining in Zone A — 4-Wheeler section</div>
-          </div>
-          <span class="alert-time">2 min ago</span>
-        </div>
-        <div class="alert-item warn">
-          <span class="alert-icon">⚠️</span>
-          <div class="alert-text">
-            <div class="alert-title">Overstay detected — Slot A-12</div>
-            <div class="alert-sub">Vehicle PB10-AB-1234 has exceeded booked duration by 45 min</div>
-          </div>
-          <span class="alert-time">18 min ago</span>
-        </div>
-        <div class="alert-item warn">
-          <span class="alert-icon">⏳</span>
-          <div class="alert-text">
-            <div class="alert-title">Reservation expiring — Slot B-07</div>
-            <div class="alert-sub">Reserved slot expires in 10 minutes, no check-in yet</div>
-          </div>
-          <span class="alert-time">22 min ago</span>
-        </div>
-        <div class="alert-item info">
-          <span class="alert-icon">✅</span>
-          <div class="alert-text">
-            <div class="alert-title">Billing auto-processed — 14 vehicles</div>
-            <div class="alert-sub">Automated checkout billing completed successfully</div>
-          </div>
-          <span class="alert-time">1 hr ago</span>
-        </div>
-        <div class="alert-item info">
-          <span class="alert-icon">🔌</span>
-          <div class="alert-text">
-            <div class="alert-title">EV slot C-03 charging complete</div>
-            <div class="alert-sub">Vehicle HR26-EV-5678 has finished charging</div>
-          </div>
-          <span class="alert-time">2 hr ago</span>
-        </div>
-      </div>
-    </div>
-
     <!-- ── CHECK IN / OUT ── -->
     <div class="dash-section" id="sec-checkin">
       <div class="page-header">
@@ -1545,35 +1493,6 @@ tr:hover td { background: rgba(255,255,255,0.02); }
   </div><!-- end main-content -->
 </div><!-- end dashPage -->
 
-<!-- Notification Panel -->
-<div class="notif-panel" id="notifPanel">
-  <div class="notif-header">
-    <div class="notif-title">Notifications</div>
-    <div class="modal-close" onclick="toggleNotif()">×</div>
-  </div>
-  <div class="notif-list">
-    <div class="notif-item danger">
-      <div class="notif-item-title">🔴 Zone A near capacity</div>
-      <div class="notif-item-body">Only 6 slots remaining in Zone A</div>
-      <div class="notif-item-time">2 min ago</div>
-    </div>
-    <div class="notif-item warn">
-      <div class="notif-item-title">⚠️ Overstay — Slot A-12</div>
-      <div class="notif-item-body">Vehicle PB10-AB-1234 exceeded duration by 45 min</div>
-      <div class="notif-item-time">18 min ago</div>
-    </div>
-    <div class="notif-item warn">
-      <div class="notif-item-title">⏳ Reservation expiring — B-07</div>
-      <div class="notif-item-body">Reserved slot expires in 10 minutes</div>
-      <div class="notif-item-time">22 min ago</div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-item-title">✅ Auto-billing complete</div>
-      <div class="notif-item-body">14 vehicles billed successfully</div>
-      <div class="notif-item-time">1 hr ago</div>
-    </div>
-  </div>
-</div>
 
 <!-- Slot tooltip -->
 <div class="slot-tooltip" id="slotTooltip"></div>
@@ -1814,37 +1733,6 @@ function handleSlotClick(num, state) {
 }
 
 /* ══════════════════════════════
-   CHARTS
-══════════════════════════════ */
-function buildCharts() {
-  const occ = [22,35,48,60,72,85,92,88,75,64,58,52];
-  const hrs = ['8A','9A','10A','11A','12P','1P','2P','3P','4P','5P','6P','7P'];
-  const rev = [12400,18600,22300,19800,24100,21500,18200];
-  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-
-  buildBarChart('occupancyChart', occ, hrs, false);
-  buildBarChart('revenueChart', rev.map(v=>Math.round(v/1000)), days, true);
-}
-
-function buildBarChart(id, vals, labels, isRev) {
-  const container = document.getElementById(id);
-  if (!container) return;
-  container.innerHTML = '';
-  const max = Math.max(...vals);
-  vals.forEach((v, i) => {
-    const group = document.createElement('div');
-    group.className = 'bar-group';
-    const pct = Math.round((v/max)*100);
-    group.innerHTML = `
-      <div class="${isRev?'rev-bar-val':'bar-val'} bar-val" style="font-size:9px;font-weight:700;color:${isRev?'var(--blue)':'var(--green)'}">${isRev?'₹'+v+'K':v+'%'}</div>
-      <div class="bar ${isRev?'rev-bar':''}" style="height:${pct}%"></div>
-      <div class="bar-label">${labels[i]}</div>
-    `;
-    container.appendChild(group);
-  });
-}
-
-/* ══════════════════════════════
    VEHICLE SEARCH
 ══════════════════════════════ */
 function searchVehicle() {
@@ -1885,14 +1773,6 @@ function filterTable(input, tableId) {
     row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
   });
 }
-
-/* ══════════════════════════════
-   NOTIFICATIONS
-══════════════════════════════ */
-function toggleNotif() {
-  document.getElementById('notifPanel').classList.toggle('open');
-}
-
 /* ══════════════════════════════
    CLOCK
 ══════════════════════════════ */
