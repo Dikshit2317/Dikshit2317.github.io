@@ -135,15 +135,11 @@ select {
     border: none;
 }
 
-.checkbox-group {
-    text-align: left;
-    margin: 15px 0;
-}
-
 .checkbox-group label {
     display: block;
-    margin: 8px 0;
+    margin: 10px 0;
     cursor: pointer;
+    text-align: left;
 }
 </style>
 </head>
@@ -151,7 +147,7 @@ select {
 
 <header>
     <div class="logo">ParkSmart</div>
-    <button class="btn">Get Access →</button>
+    <button class="btn" onclick="openAccessPopup()">Get Access →</button>
 </header>
 
 <div class="center">
@@ -176,10 +172,11 @@ select {
     </div>
 </div>
 
-<div class="popup" id="popup">
+<!-- Get Access Popup -->
+<div class="popup" id="accessPopup">
     <div class="popup-content">
-        <div class="close" onclick="closePopup()">&times;</div>
-        <h3>Select Type</h3>
+        <div class="close" onclick="closeAccessPopup()">&times;</div>
+        <h3>Select Access Type</h3>
 
         <div class="checkbox-group">
             <label><input type="checkbox"> Valet</label>
@@ -187,6 +184,14 @@ select {
             <label><input type="checkbox"> Admin</label>
         </div>
 
+        <button class="btn">Continue</button>
+    </div>
+</div>
+
+<!-- Book Slot Popup -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <div class="close" onclick="closePopup()">&times;</div>
         <h3>Select Location</h3>
 
         <select>
@@ -213,6 +218,14 @@ function openPopup() {
 
 function closePopup() {
     document.getElementById('popup').style.display = 'none';
+}
+
+function openAccessPopup() {
+    document.getElementById('accessPopup').style.display = 'flex';
+}
+
+function closeAccessPopup() {
+    document.getElementById('accessPopup').style.display = 'none';
 }
 </script>
 
