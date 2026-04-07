@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParkSmart</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(circle at center, #0b1c24, #02060a);
+    color: white;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.btn {
+    padding: 10px 22px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    background: #00ffa6;
+    color: black;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(0,255,170,0.6);
+}
+
+.center {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.live-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: rgba(0,255,170,0.1);
+    border: 1px solid rgba(0,255,170,0.4);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #00ffae;
+    border-radius: 50%;
+    animation: glow 1s infinite;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px #00ffae; }
+    50% { box-shadow: 0 0 20px #00ffae; }
+    100% { box-shadow: 0 0 5px #00ffae; }
+}
+
+.title {
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1px;
+}
+
+.gradient {
+    color: #00ffa6;
+}
+
+.subtitle {
+    max-width: 700px;
+    margin: 20px auto;
+    color: #a0aab3;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.book-btn {
+    margin-top: 30px;
+}
+
+/* Popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    position: relative;
+    background: #0f1a22;
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 22px;
+    cursor: pointer;
+    color: white;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">ParkSmart</div>
+    <button class="btn">Get Access →</button>
+</header>
+
+<div class="center">
+    <div class="live-box">
+        <div class="dot"></div>
+        <span>Live System — Real-Time Parking Management</span>
+    </div>
+
+    <div class="title">
+        Smart<br>
+        Parking for<br>
+        <span class="gradient">Modern</span><br>
+        <span class="gradient">Facilities</span>
+    </div>
+
+    <div class="subtitle">
+        Complete end-to-end parking management with real-time slot tracking, automated billing, valet reservations, and deep analytics — all in one system.
+    </div>
+
+    <div class="book-btn">
+        <button class="btn" onclick="openPopup()">Book Slot</button>
+    </div>
+</div>
+
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <div class="close" onclick="closePopup()">&times;</div>
+        <h3>Select Location</h3>
+
+        <select>
+            <option>Select Locality</option>
+            <option>Chandigarh</option>
+
+        </select>
+
+        <select>
+            <option>Select Sector</option>
+            <option>Select Sector</option>
+            <option>Select Sector</option>
+            <option>Select Sector</option>
+            <option>Select Sector</option>
+        </select>
+
+        <button class="btn">Search Slot</button>
+    </div>
+</div>
+
+<script>
+function openPopup() {
+    document.getElementById('popup').style.display = 'flex';
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
