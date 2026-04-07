@@ -134,6 +134,17 @@ select {
     border-radius: 8px;
     border: none;
 }
+
+.checkbox-group {
+    text-align: left;
+    margin: 15px 0;
+}
+
+.checkbox-group label {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -168,12 +179,19 @@ select {
 <div class="popup" id="popup">
     <div class="popup-content">
         <div class="close" onclick="closePopup()">&times;</div>
+        <h3>Select Type</h3>
+
+        <div class="checkbox-group">
+            <label><input type="checkbox"> Valet</label>
+            <label><input type="checkbox"> Staff</label>
+            <label><input type="checkbox"> Admin</label>
+        </div>
+
         <h3>Select Location</h3>
 
         <select>
             <option>Select Locality</option>
             <option>Chandigarh</option>
-
         </select>
 
         <select>
