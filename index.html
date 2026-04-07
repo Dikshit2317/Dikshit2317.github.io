@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ParkSmart — Mall Parking System</title>
+<title>ParkSmart</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -945,29 +945,28 @@ tr:hover td { background: rgba(255,255,255,0.02); }
     </div>
 
     <div class="hero-title">
-      Smart Parking<br>for <span class="accent">Modern</span><br><span class="accent">Facilities</span>
+      Smart Parking<br>for<br> <span class="accent">Modern</span><br><span class="accent">Facilities</span>
     </div>
 
     <p class="hero-sub">
-      Complete end-to-end mall parking management with real-time slot tracking, automated billing, valet coordination, and deep analytics — all in one system.
+      Complete end-to-end parking management with real-time slot tracking, automated billing, valet coordination
     </p>
 
     <div class="hero-actions">
-      <button class="btn-primary" onclick="openModal('bookModal')">🅿 Book a Slot</button>
-      <button class="btn-secondary" onclick="openModal('accessModal')">Staff / Admin Access →</button>
+      <button class="btn-primary" onclick="openModal('bookModal')">Book a Slot</button>
     </div>
 
     <div class="stats-bar">
       <div class="stat-item">
-        <div class="stat-num">240</div>
+        <div class="stat-num">350</div>
         <div class="stat-label">Total Slots</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num" id="liveAvail">87</div>
+        <div class="stat-num" id="liveAvail">-</div>
         <div class="stat-label">Available Now</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">3</div>
+        <div class="stat-num">5</div>
         <div class="stat-label">Active Zones</div>
       </div>
       <div class="stat-item">
@@ -984,7 +983,7 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 <div class="overlay" id="accessModal">
   <div class="modal">
     <div class="modal-close" onclick="closeModal('accessModal')">×</div>
-    <h3>Who are you?</h3>
+    <h3>Please Select User Type</h3>
     <div class="role-cards">
       <label class="role-card" onclick="selectRole(this, 'Valet')">
         <input type="radio" name="role" value="Valet">
@@ -1004,10 +1003,18 @@ tr:hover td { background: rgba(255,255,255,0.02); }
       </label>
       <label class="role-card" onclick="selectRole(this, 'Admin')">
         <input type="radio" name="role" value="Admin">
-        <span class="role-icon">🛡️</span>
+        <span class="role-icon">🧑‍💼</span>
         <div class="role-info">
           <div class="role-name">Admin</div>
           <div class="role-desc">Full analytics, settings & control</div>
+        </div>
+      </label>
+        <label class="role-card" onclick="selectRole(this, 'User')">
+        <input type="radio" name="role" value="User">
+        <span class="role-icon">👤</span>
+        <div class="role-info">
+          <div class="role-name">User</div>
+          <div class="role-desc">Check history, payments, reserve slot</div>
         </div>
       </label>
     </div>
@@ -1021,7 +1028,7 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 <div class="overlay" id="bookModal">
   <div class="modal">
     <div class="modal-close" onclick="closeModal('bookModal')">×</div>
-    <h3>🅿 Book a Parking Slot</h3>
+    <h3>Book a Parking Slot</h3>
     <select><option>Select Locality</option><option>Chandigarh</option></select>
     <select id="sectorSelect"><option>Select Sector</option><option>Sector-17</option><option>Sector-22</option><option>Sector-8</option><option>Sector-34</option></select>
     <select><option>Vehicle Type</option><option>2-Wheeler</option><option>4-Wheeler</option><option>EV (Charging)</option></select>
@@ -1069,7 +1076,7 @@ tr:hover td { background: rgba(255,255,255,0.02); }
   <div class="sidebar">
     <div class="sidebar-logo">Park<span>Smart</span></div>
     <div class="sidebar-user">
-      <div class="user-avatar" id="sideAvatar">🛡️</div>
+      <div class="user-avatar" id="sideAvatar">🧑‍💼</div>
       <div class="user-info">
         <div class="user-name" id="sideUserName">Admin User</div>
         <div class="user-role" id="sideUserRole">Admin</div>
