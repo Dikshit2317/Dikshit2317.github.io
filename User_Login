@@ -1,0 +1,106 @@
+INSERT INTO User_Login VALUES (1, 'admin_rajiv',   'Rajiv@2024',    'admin');
+INSERT INTO User_Login VALUES (2, 'admin_priya',   'Priya@Chd1',    'admin');
+INSERT INTO User_Login VALUES (3, 'admin_surjeet', 'Surjeet#123',   'admin');
+INSERT INTO User_Login VALUES (4, 'admin_kavita',  'Kavita@Sec17',  'admin');
+
+-- Area 1: Sector 17
+INSERT INTO User_Login VALUES (5,  'staff_amarjit',  'Staff@001', 'staff');
+INSERT INTO User_Login VALUES (6,  'staff_gurpreet', 'Staff@002', 'staff');
+INSERT INTO User_Login VALUES (7,  'staff_hardeep',  'Staff@003', 'staff');
+-- Area 2: Sector 22
+INSERT INTO User_Login VALUES (8,  'staff_jaswant',  'Staff@004', 'staff');
+INSERT INTO User_Login VALUES (9,  'staff_kulwant',  'Staff@005', 'staff');
+INSERT INTO User_Login VALUES (10, 'staff_lakhwinder','Staff@006', 'staff');
+-- Area 3: Elante
+INSERT INTO User_Login VALUES (11, 'staff_manjeet',  'Staff@007', 'staff');
+INSERT INTO User_Login VALUES (12, 'staff_navdeep',  'Staff@008', 'staff');
+INSERT INTO User_Login VALUES (13, 'staff_onkar',    'Staff@009', 'staff');
+-- Area 4
+INSERT INTO User_Login VALUES (14, 'staff_baljit',     'Staff@010', 'staff');
+INSERT INTO User_Login VALUES (15, 'staff_charanjit',  'Staff@011', 'staff');
+INSERT INTO User_Login VALUES (16, 'staff_dilpreet',   'Staff@012', 'staff');
+
+-- Area 5
+INSERT INTO User_Login VALUES (17, 'staff_ekam',       'Staff@013', 'staff');
+INSERT INTO User_Login VALUES (18, 'staff_fateh',      'Staff@014', 'staff');
+INSERT INTO User_Login VALUES (19, 'staff_gagandeep',  'Staff@015', 'staff');
+
+-- Area 6
+INSERT INTO User_Login VALUES (20, 'staff_harjot',     'Staff@016', 'staff');
+INSERT INTO User_Login VALUES (21, 'staff_inderpreet', 'Staff@017', 'staff');
+INSERT INTO User_Login VALUES (22, 'staff_jagmeet',    'Staff@018', 'staff');
+
+-- Area 7
+INSERT INTO User_Login VALUES (23, 'staff_kamaljit',   'Staff@019', 'staff');
+INSERT INTO User_Login VALUES (24, 'staff_lovepreet',  'Staff@020', 'staff');
+INSERT INTO User_Login VALUES (25, 'staff_manpreet',   'Staff@021', 'staff');
+
+-- Valet (1 per area = 7 valets)
+INSERT INTO User_Login VALUES (26, 'valet_sec17',   'Valet@001', 'valet');
+INSERT INTO User_Login VALUES (27, 'valet_sec22',   'Valet@002', 'valet');
+INSERT INTO User_Login VALUES (28, 'valet_elante',  'Valet@003', 'valet');
+INSERT INTO User_Login VALUES (29, 'valet_isbt',    'Valet@004', 'valet');
+INSERT INTO User_Login VALUES (30, 'valet_pgi',     'Valet@005', 'valet');
+INSERT INTO User_Login VALUES (31, 'valet_sukhna',  'Valet@006', 'valet');
+INSERT INTO User_Login VALUES (32, 'valet_sec35',   'Valet@007', 'valet');
+
+INSERT INTO User_Login VALUES (33, 'rahul_sharma',    'Pass@001', 'client');
+INSERT INTO User_Login VALUES (34, 'simran_kaur',     'Pass@002', 'client');
+INSERT INTO User_Login VALUES (35, 'aman_verma',      'Pass@003', 'client');
+INSERT INTO User_Login VALUES (36, 'pooja_mehta',     'Pass@004', 'client');
+INSERT INTO User_Login VALUES (37, 'harpreet_singh',  'Pass@005', 'client');
+INSERT INTO User_Login VALUES (38, 'neha_arora',      'Pass@006', 'client');
+INSERT INTO User_Login VALUES (39, 'rohit_kumar',      'Pass@007', 'client');
+INSERT INTO User_Login VALUES (40, 'anjali_gupta',     'Pass@008', 'client');
+INSERT INTO User_Login VALUES (41, 'vikas_singh',      'Pass@009', 'client');
+INSERT INTO User_Login VALUES (42, 'meena_sharma',     'Pass@010', 'client');
+INSERT INTO User_Login VALUES (43, 'deepak_yadav',     'Pass@011', 'client');
+INSERT INTO User_Login VALUES (44, 'ritika_jain',      'Pass@012', 'client');
+INSERT INTO User_Login VALUES (45, 'karan_malhotra',   'Pass@013', 'client');
+INSERT INTO User_Login VALUES (46, 'sonal_bansal',     'Pass@014', 'client');
+INSERT INTO User_Login VALUES (47, 'naveen_tiwari',    'Pass@015', 'client');
+INSERT INTO User_Login VALUES (48, 'sakshi_garg',      'Pass@016', 'client');
+INSERT INTO User_Login VALUES (49, 'rahul_arora',      'Pass@017', 'client');
+INSERT INTO User_Login VALUES (50, 'priya_kapoor',     'Pass@018', 'client');
+INSERT INTO User_Login VALUES (51, 'ankit_saxena',     'Pass@019', 'client');
+INSERT INTO User_Login VALUES (52, 'komal_singla',     'Pass@020', 'client');
+INSERT INTO User_Login VALUES (53, 'sumit_dhawan',     'Pass@021', 'client');
+INSERT INTO User_Login VALUES (54, 'neeraj_goyal',     'Pass@022', 'client');
+INSERT INTO User_Login VALUES (55, 'tanya_khurana',    'Pass@023', 'client');
+INSERT INTO User_Login VALUES (56, 'manish_agarwal',   'Pass@024', 'client');
+INSERT INTO User_Login VALUES (57, 'ruchi_batra',      'Pass@025', 'client');
+INSERT INTO User_Login VALUES (58, 'ashish_chopra',    'Pass@026', 'client');
+INSERT INTO User_Login VALUES (59, 'payal_saini',      'Pass@027', 'client');
+INSERT INTO User_Login VALUES (60, 'gaurav_bhalla',    'Pass@028', 'client');
+INSERT INTO User_Login VALUES (61, 'divya_mittal',     'Pass@029', 'client');
+INSERT INTO User_Login VALUES (62, 'sandeep_kohli',    'Pass@030', 'client');
+INSERT INTO User_Login VALUES (63, 'monika_nanda',     'Pass@031', 'client');
+INSERT INTO User_Login VALUES (64, 'harish_chawla',    'Pass@032', 'client');
+INSERT INTO User_Login VALUES (65, 'nikita_suri',      'Pass@033', 'client');
+INSERT INTO User_Login VALUES (66, 'varun_puri',       'Pass@034', 'client');
+INSERT INTO User_Login VALUES (67, 'isha_talwar',      'Pass@035', 'client');
+INSERT INTO User_Login VALUES (68, 'aditya_khanna',    'Pass@036', 'client');
+INSERT INTO User_Login VALUES (69, 'shruti_sodhi',     'Pass@037', 'client');
+INSERT INTO User_Login VALUES (70, 'rakesh_sehgal',    'Pass@038', 'client');
+INSERT INTO User_Login VALUES (71, 'kanika_bedi',      'Pass@039', 'client');
+INSERT INTO User_Login VALUES (72, 'sunil_dutta',      'Pass@040', 'client');
+INSERT INTO User_Login VALUES (73, 'pooja_sachdeva',   'Pass@041', 'client');
+INSERT INTO User_Login VALUES (74, 'amit_taneja',      'Pass@042', 'client');
+INSERT INTO User_Login VALUES (75, 'reena_chadha',     'Pass@043', 'client');
+INSERT INTO User_Login VALUES (76, 'yogesh_sachdeva',  'Pass@044', 'client');
+INSERT INTO User_Login VALUES (77, 'anjali_sodhi',     'Pass@045', 'client');
+INSERT INTO User_Login VALUES (78, 'deepika_ahuja',    'Pass@046', 'client');
+INSERT INTO User_Login VALUES (79, 'rahul_narang',     'Pass@047', 'client');
+INSERT INTO User_Login VALUES (80, 'simran_oberoi',    'Pass@048', 'client');
+INSERT INTO User_Login VALUES (81, 'karan_bajaj',      'Pass@049', 'client');
+INSERT INTO User_Login VALUES (82, 'neha_sachdeva',    'Pass@050', 'client');
+INSERT INTO User_Login VALUES (83, 'vishal_arneja',    'Pass@051', 'client');
+INSERT INTO User_Login VALUES (84, 'tina_grover',      'Pass@052', 'client');
+INSERT INTO User_Login VALUES (85, 'manpreet_gill',    'Pass@053', 'client');
+INSERT INTO User_Login VALUES (86, 'gagan_brar',       'Pass@054', 'client');
+INSERT INTO User_Login VALUES (87, 'jaspreet_sidhu',   'Pass@055', 'client');
+INSERT INTO User_Login VALUES (88, 'harleen_kaur',     'Pass@056', 'client');
+INSERT INTO User_Login VALUES (89, 'navjot_singh',     'Pass@057', 'client');
+INSERT INTO User_Login VALUES (90, 'amritpal_singh',   'Pass@058', 'client');
+INSERT INTO User_Login VALUES (91, 'rupinder_kaur',    'Pass@059', 'client');
+INSERT INTO User_Login VALUES (92, 'balraj_singh',     'Pass@060', 'client');
