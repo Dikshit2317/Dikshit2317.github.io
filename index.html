@@ -3,511 +3,1910 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ParkSmart</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<title>ParkSmart — Mall Parking System</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; }
-
-body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: radial-gradient(circle at center, #0b1c24, #02060a);
-    color: white;
+:root {
+  --green: #00ffa6;
+  --green-dim: rgba(0,255,166,0.12);
+  --green-border: rgba(0,255,166,0.25);
+  --red: #ff4d6d;
+  --yellow: #ffd166;
+  --blue: #4cc9f0;
+  --bg: #070e14;
+  --surface: #0d1b25;
+  --surface2: #122030;
+  --surface3: #172840;
+  --text: #e8f0f5;
+  --muted: #5a7a8a;
+  --border: rgba(255,255,255,0.07);
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════
+   PAGE SYSTEM
+═══════════════════════════════════════ */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ═══════════════════════════════════════
+   LANDING PAGE
+═══════════════════════════════════════ */
+#landingPage {
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,255,166,0.1) 0%, transparent 70%),
+              radial-gradient(circle at 80% 80%, rgba(76,201,240,0.06) 0%, transparent 50%),
+              var(--bg);
+}
+
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 56px;
 }
 
 .logo {
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: 1px;
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: white;
+}
+.logo span { color: var(--green); }
+
+.header-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--green-border), transparent);
 }
 
-/* ① Horizontal divider line below header */
-.header-line {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(0,255,166,0.5), transparent);
+.landing-hero {
+  text-align: center;
+  padding: 90px 20px 60px;
 }
 
-.btn {
-    padding: 10px 22px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    background: #00ffa6;
-    color: black;
-    transition: 0.3s;
-    font-family: 'Montserrat', sans-serif;
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 32px;
+  color: var(--green);
 }
 
-.btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(0,255,170,0.6);
+.pulse-dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 1.4s ease infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,255,166,0.6); }
+  50% { box-shadow: 0 0 0 7px rgba(0,255,166,0); }
 }
 
-.btn:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 78px;
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+}
+.hero-title .accent { color: var(--green); }
+
+.hero-sub {
+  max-width: 580px;
+  margin: 0 auto 40px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
-.center {
-    text-align: center;
-    margin-top: 80px;
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+.btn-primary {
+  padding: 13px 28px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--green);
+  color: #060e12;
+  transition: all 0.25s;
+  letter-spacing: 0.3px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,255,166,0.35); }
+
+.btn-secondary {
+  padding: 13px 28px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  background: transparent;
+  color: var(--text);
+  transition: all 0.25s;
+}
+.btn-secondary:hover { border-color: var(--green-border); background: var(--green-dim); }
+
+/* Stats bar */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 60px auto 0;
+  max-width: 680px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.stat-item {
+  flex: 1;
+  padding: 20px 24px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--green);
+}
+.stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.5px; font-weight: 500; }
+
+/* ═══════════════════════════════════════
+   MODALS / OVERLAYS
+═══════════════════════════════════════ */
+.overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  z-index: 500;
+  justify-content: center;
+  align-items: center;
+}
+.overlay.open { display: flex; }
+
+.modal {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 32px 32px;
+  width: 360px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+  animation: modalIn 0.25s ease;
+}
+@keyframes modalIn {
+  from { transform: translateY(16px) scale(0.97); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
 }
 
-.live-box {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 18px;
-    border-radius: 20px;
-    background: rgba(0,255,170,0.1);
-    border: 1px solid rgba(0,255,170,0.4);
-    margin-bottom: 30px;
-    font-weight: 600;
+.modal h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px; font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.dot {
-    width: 10px;
-    height: 10px;
-    background: #00ffae;
-    border-radius: 50%;
-    animation: glow 1s infinite;
+.modal-close {
+  position: absolute; top: 14px; right: 18px;
+  font-size: 20px; cursor: pointer; color: var(--muted);
+  transition: color 0.2s; line-height: 1;
 }
+.modal-close:hover { color: white; }
 
-@keyframes glow {
-    0% { box-shadow: 0 0 5px #00ffae; }
-    50% { box-shadow: 0 0 20px #00ffae; }
-    100% { box-shadow: 0 0 5px #00ffae; }
-}
-
-.title {
-    font-size: 80px;
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -1px;
-}
-
-.gradient { color: #00ffa6; }
-
-.subtitle {
-    max-width: 700px;
-    margin: 20px auto;
-    color: #a0aab3;
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-.book-btn { margin-top: 30px; }
-
-/* Overlay */
-.popup {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.75);
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-}
-
-.popup-content {
-    position: relative;
-    background: #0f1a22;
-    border: 1px solid rgba(0,255,166,0.15);
-    padding: 36px 30px 30px;
-    border-radius: 18px;
-    width: 340px;
-    text-align: center;
-    box-shadow: 0 0 40px rgba(0,0,0,0.6);
-}
-
-.popup-content h3 {
-    margin: 0 0 20px;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.close {
-    position: absolute;
-    top: 12px; right: 16px;
-    font-size: 22px;
-    cursor: pointer;
-    color: #a0aab3;
-    line-height: 1;
-    transition: color 0.2s;
-}
-.close:hover { color: white; }
-
-/* ② Radio-style role cards — max 1 selection */
-.role-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 22px;
-}
-
+/* Role cards */
+.role-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
 .role-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 16px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.1);
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    user-select: none;
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
 }
-
-.role-card:hover {
-    border-color: rgba(0,255,166,0.4);
-    background: rgba(0,255,166,0.05);
-}
-
-.role-card.selected {
-    border-color: #00ffa6;
-    background: rgba(0,255,166,0.1);
-}
-
+.role-card:hover { border-color: var(--green-border); background: var(--green-dim); }
+.role-card.selected { border-color: var(--green); background: var(--green-dim); }
 .role-card input[type="radio"] { display: none; }
+.role-icon { font-size: 22px; width: 30px; text-align: center; }
+.role-info { text-align: left; }
+.role-name { font-weight: 600; font-size: 14px; }
+.role-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-.role-icon { font-size: 20px; width: 28px; text-align: center; }
-.role-label { font-weight: 600; font-size: 14px; }
-
-/* Select dropdowns */
-select {
-    width: 100%;
-    padding: 10px 12px;
-    margin: 8px 0;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: #162330;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    outline: none;
+/* Book slot selects */
+.modal select {
+  width: 100%;
+  padding: 11px 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
 }
+.modal select:focus { border-color: var(--green-border); }
 
-/* ③ Full-screen Auth Page */
+/* ═══════════════════════════════════════
+   AUTH PAGE
+═══════════════════════════════════════ */
 #authPage {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at center, #0b1c24, #02060a);
-    z-index: 200;
-    justify-content: center;
-    align-items: center;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,255,166,0.06) 0%, transparent 70%), var(--bg);
 }
+#authPage.active { display: flex; }
 
 .auth-card {
-    background: #0f1a22;
-    border: 1px solid rgba(0,255,166,0.18);
-    border-radius: 20px;
-    padding: 40px 36px;
-    width: 360px;
-    box-shadow: 0 0 60px rgba(0,0,0,0.7);
-    text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 44px 40px;
+  width: 380px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6);
 }
 
-.auth-card .brand {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
+.auth-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 800;
+  text-align: center; margin-bottom: 6px;
 }
-
-.role-badge {
-    display: inline-block;
-    background: rgba(0,255,166,0.12);
-    border: 1px solid rgba(0,255,166,0.35);
-    color: #00ffa6;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 12px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 28px;
+.auth-role-badge {
+  display: block;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.auth-role-badge span {
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  color: var(--green);
+  font-size: 10px; font-weight: 700;
+  padding: 3px 12px; border-radius: 100px;
+  letter-spacing: 1.5px; text-transform: uppercase;
 }
 
 .auth-tabs {
-    display: flex;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 24px;
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 26px;
 }
-
 .auth-tab {
-    flex: 1;
-    padding: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    background: none;
-    border: none;
-    color: #a0aab3;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    letter-spacing: 0.5px;
+  flex: 1; padding: 10px;
+  background: none; border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600; font-size: 13px;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s; letter-spacing: 0.3px;
 }
-
-.auth-tab.active {
-    color: #00ffa6;
-    border-bottom-color: #00ffa6;
-}
+.auth-tab.active { color: var(--green); border-bottom-color: var(--green); }
 
 .auth-form { display: none; }
 .auth-form.active { display: block; }
 
-.input-group {
-    text-align: left;
-    margin-bottom: 16px;
+.field { margin-bottom: 16px; }
+.field label {
+  display: block; font-size: 11px; font-weight: 600;
+  color: var(--muted); letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 7px;
 }
-
-.input-group label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    color: #a0aab3;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
+.field input {
+  width: 100%; padding: 12px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; outline: none;
+  transition: border-color 0.2s;
 }
-
-.input-group input {
-    width: 100%;
-    padding: 11px 14px;
-    background: #162330;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 9px;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.input-group input:focus {
-    border-color: rgba(0,255,166,0.5);
-}
+.field input:focus { border-color: var(--green-border); }
 
 .auth-submit {
-    width: 100%;
-    padding: 12px;
-    margin-top: 6px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 14px;
-    background: #00ffa6;
-    color: black;
-    font-family: 'Montserrat', sans-serif;
-    transition: 0.3s;
-    letter-spacing: 0.5px;
+  width: 100%; padding: 13px;
+  margin-top: 8px;
+  border-radius: 12px; border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700; font-size: 14px;
+  background: var(--green); color: #060e12;
+  transition: all 0.25s; letter-spacing: 0.3px;
 }
-
-.auth-submit:hover {
-    box-shadow: 0 0 16px rgba(0,255,170,0.55);
-    transform: scale(1.02);
-}
+.auth-submit:hover { box-shadow: 0 6px 20px rgba(0,255,166,0.4); transform: translateY(-1px); }
 
 .back-link {
-    display: inline-block;
-    margin-top: 18px;
-    font-size: 12px;
-    color: #a0aab3;
-    cursor: pointer;
-    transition: color 0.2s;
+  display: block; text-align: center;
+  margin-top: 20px; font-size: 12px;
+  color: var(--muted); cursor: pointer;
+  transition: color 0.2s;
 }
 .back-link:hover { color: white; }
+
+/* ═══════════════════════════════════════
+   DASHBOARD SHELL
+═══════════════════════════════════════ */
+#dashPage { display: none; }
+#dashPage.active { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 230px; min-height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 0;
+  position: fixed; left: 0; top: 0; bottom: 0;
+  z-index: 50;
+}
+
+.sidebar-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 800;
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid var(--border);
+  color: white;
+}
+.sidebar-logo span { color: var(--green); }
+
+.sidebar-user {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.user-avatar {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.user-info { flex: 1; overflow: hidden; }
+.user-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-role { font-size: 10px; color: var(--green); font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; }
+
+.nav-section-label {
+  font-size: 10px; font-weight: 700;
+  color: var(--muted); letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 20px 20px 8px;
+}
+
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0;
+  font-size: 13px; font-weight: 500;
+  color: var(--muted);
+  margin: 1px 8px;
+  border-radius: 10px;
+}
+.nav-item:hover { background: var(--surface2); color: var(--text); }
+.nav-item.active { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+.nav-item .nav-icon { font-size: 16px; width: 22px; text-align: center; }
+
+.nav-badge {
+  margin-left: auto;
+  background: var(--red);
+  color: white; font-size: 10px;
+  font-weight: 700; padding: 2px 7px;
+  border-radius: 100px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.logout-btn {
+  width: 100%; padding: 10px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s;
+}
+.logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+/* Main content area */
+.main-content {
+  margin-left: 230px;
+  flex: 1; padding: 32px 36px;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.page-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px; font-weight: 800;
+}
+.page-subtitle { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+/* ═══════════════════════════════════════
+   DASHBOARD SECTIONS
+═══════════════════════════════════════ */
+.dash-section { display: none; }
+.dash-section.active { display: block; }
+
+/* KPI Cards */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 20px;
+  transition: border-color 0.2s;
+}
+.kpi-card:hover { border-color: var(--green-border); }
+.kpi-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.kpi-icon { font-size: 22px; }
+.kpi-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 8px; border-radius: 100px;
+  letter-spacing: 0.5px;
+}
+.badge-green { background: rgba(0,255,166,0.15); color: var(--green); }
+.badge-red { background: rgba(255,77,109,0.15); color: var(--red); }
+.badge-yellow { background: rgba(255,209,102,0.15); color: var(--yellow); }
+.badge-blue { background: rgba(76,201,240,0.15); color: var(--blue); }
+
+.kpi-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px; font-weight: 800;
+  margin-top: 14px; margin-bottom: 4px;
+}
+.kpi-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+/* ═══════════════════════════════════════
+   LIVE SLOT MAP
+═══════════════════════════════════════ */
+.slot-map-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.slot-map-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.slot-map-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 700;
+}
+
+.slot-legend {
+  display: flex; gap: 18px; align-items: center;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; color: var(--muted);
+}
+.legend-dot {
+  width: 10px; height: 10px; border-radius: 3px;
+}
+.ld-free { background: var(--green); }
+.ld-occ { background: var(--red); }
+.ld-res { background: var(--yellow); }
+.ld-dis { background: var(--blue); }
+
+.zone-label {
+  font-size: 11px; font-weight: 700;
+  color: var(--muted); letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px; margin-top: 20px;
+}
+.zone-label:first-child { margin-top: 0; }
+
+.slots-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+
+.slot {
+  width: 52px; height: 52px;
+  border-radius: 10px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  position: relative;
+}
+.slot:hover { transform: scale(1.08); z-index: 2; }
+
+.slot.free {
+  background: rgba(0,255,166,0.12);
+  border-color: rgba(0,255,166,0.3);
+  color: var(--green);
+}
+.slot.occupied {
+  background: rgba(255,77,109,0.12);
+  border-color: rgba(255,77,109,0.3);
+  color: var(--red);
+}
+.slot.reserved {
+  background: rgba(255,209,102,0.12);
+  border-color: rgba(255,209,102,0.3);
+  color: var(--yellow);
+}
+.slot.disabled {
+  background: rgba(76,201,240,0.08);
+  border-color: rgba(76,201,240,0.2);
+  color: var(--blue);
+}
+
+.slot-num { font-size: 11px; font-weight: 800; }
+.slot-type { font-size: 9px; opacity: 0.8; margin-top: 2px; }
+
+/* Slot tooltip */
+.slot-tooltip {
+  display: none;
+  position: fixed;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 12px;
+  z-index: 999;
+  min-width: 160px;
+  pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.slot-tooltip.visible { display: block; }
+.tooltip-row { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 5px; }
+.tooltip-row:last-child { margin-bottom: 0; }
+.tooltip-key { color: var(--muted); }
+.tooltip-val { font-weight: 600; }
+
+/* ═══════════════════════════════════════
+   TABLES
+═══════════════════════════════════════ */
+.table-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.table-head {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.table-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700;
+}
+
+.search-input {
+  padding: 8px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; outline: none;
+  width: 200px;
+  transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(--green-border); }
+
+table { width: 100%; border-collapse: collapse; }
+th {
+  padding: 12px 20px;
+  text-align: left;
+  font-size: 11px; font-weight: 700;
+  color: var(--muted); letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 14px 20px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 100px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+}
+.pill-green { background: rgba(0,255,166,0.12); color: var(--green); }
+.pill-red { background: rgba(255,77,109,0.12); color: var(--red); }
+.pill-yellow { background: rgba(255,209,102,0.12); color: var(--yellow); }
+.pill-blue { background: rgba(76,201,240,0.12); color: var(--blue); }
+
+.action-btn {
+  padding: 6px 14px;
+  border-radius: 8px; border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 600;
+  transition: all 0.2s;
+}
+.action-btn.green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+.action-btn.green:hover { background: rgba(0,255,166,0.25); }
+.action-btn.red { background: rgba(255,77,109,0.1); color: var(--red); border: 1px solid rgba(255,77,109,0.25); }
+.action-btn.red:hover { background: rgba(255,77,109,0.2); }
+
+/* ═══════════════════════════════════════
+   TWO-COLUMN LAYOUT
+═══════════════════════════════════════ */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 24px; }
+
+/* ═══════════════════════════════════════
+   OCCUPANCY BAR CHART
+═══════════════════════════════════════ */
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+}
+.chart-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 20px;
+}
+.bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 120px; }
+.bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+.bar {
+  width: 100%; border-radius: 6px 6px 0 0;
+  background: var(--green-dim);
+  border-top: 2px solid var(--green);
+  transition: height 0.5s ease;
+  position: relative;
+}
+.bar:hover { background: rgba(0,255,166,0.25); }
+.bar-label { font-size: 10px; color: var(--muted); text-align: center; }
+.bar-val { font-size: 9px; font-weight: 700; color: var(--green); text-align: center; margin-bottom: 2px; }
+
+/* Revenue chart */
+.rev-bar { background: rgba(76,201,240,0.12); border-top: 2px solid var(--blue); }
+.rev-bar:hover { background: rgba(76,201,240,0.25); }
+.rev-bar-val { color: var(--blue); }
+
+/* ═══════════════════════════════════════
+   ALERT BANNERS
+═══════════════════════════════════════ */
+.alert-list { display: flex; flex-direction: column; gap: 10px; }
+.alert-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid;
+  font-size: 13px;
+}
+.alert-item.warn { background: rgba(255,209,102,0.08); border-color: rgba(255,209,102,0.25); color: var(--yellow); }
+.alert-item.danger { background: rgba(255,77,109,0.08); border-color: rgba(255,77,109,0.25); color: var(--red); }
+.alert-item.info { background: var(--green-dim); border-color: var(--green-border); color: var(--green); }
+.alert-icon { font-size: 18px; }
+.alert-text { flex: 1; }
+.alert-title { font-weight: 600; }
+.alert-sub { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+.alert-time { font-size: 11px; opacity: 0.6; white-space: nowrap; }
+
+/* ═══════════════════════════════════════
+   VALET SECTION
+═══════════════════════════════════════ */
+.valet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.valet-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.valet-card:hover { border-color: var(--green-border); }
+.valet-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.valet-slot { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; }
+.valet-plate { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.valet-time { font-size: 11px; color: var(--muted); }
+.valet-action { margin-top: 14px; width: 100%; padding: 9px; border-radius: 9px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 12px; transition: all 0.2s; }
+.va-pickup { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+.va-pickup:hover { background: rgba(0,255,166,0.25); }
+.va-deliver { background: rgba(76,201,240,0.12); color: var(--blue); border: 1px solid rgba(76,201,240,0.25); }
+.va-deliver:hover { background: rgba(76,201,240,0.25); }
+
+/* ═══════════════════════════════════════
+   BILLING
+═══════════════════════════════════════ */
+.billing-summary {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 16px; margin-bottom: 24px;
+}
+.bill-kpi {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+.bill-kpi-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px; font-weight: 800; margin-bottom: 4px;
+}
+.bill-kpi-label { font-size: 12px; color: var(--muted); }
+
+/* ═══════════════════════════════════════
+   VEHICLE SEARCH
+═══════════════════════════════════════ */
+.search-hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.search-hero h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 800;
+  margin-bottom: 8px;
+}
+.search-hero p { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.search-bar {
+  display: flex; gap: 12px;
+  max-width: 480px; margin: 0 auto;
+}
+.search-bar input {
+  flex: 1; padding: 13px 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-bar input:focus { border-color: var(--green-border); }
+.search-bar .btn-primary { white-space: nowrap; }
+
+.vehicle-profile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  display: none;
+}
+.vehicle-profile.visible { display: block; }
+.vp-header { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; }
+.vp-icon {
+  width: 60px; height: 60px; border-radius: 14px;
+  background: var(--green-dim); border: 1px solid var(--green-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+}
+.vp-plate { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; }
+.vp-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.vp-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.vp-stat {
+  background: var(--surface2);
+  border-radius: 12px; padding: 14px 16px;
+}
+.vp-stat-val { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; }
+.vp-stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* ═══════════════════════════════════════
+   NOTIFICATION PANEL
+═══════════════════════════════════════ */
+.notif-panel {
+  position: fixed; right: 0; top: 0; bottom: 0;
+  width: 320px;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex; flex-direction: column;
+}
+.notif-panel.open { transform: translateX(0); }
+.notif-header {
+  padding: 22px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.notif-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; }
+.notif-list { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.notif-item {
+  padding: 14px 16px;
+  background: var(--surface2);
+  border-radius: 12px;
+  border-left: 3px solid var(--green);
+  font-size: 13px;
+}
+.notif-item.warn { border-left-color: var(--yellow); }
+.notif-item.danger { border-left-color: var(--red); }
+.notif-item-title { font-weight: 600; margin-bottom: 4px; }
+.notif-item-body { color: var(--muted); font-size: 12px; }
+.notif-item-time { font-size: 10px; color: var(--muted); margin-top: 6px; }
+
+/* Top bar */
+.topbar {
+  display: flex; align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.topbar-btn {
+  position: relative;
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; cursor: pointer;
+  transition: all 0.2s;
+}
+.topbar-btn:hover { border-color: var(--green-border); background: var(--green-dim); }
+.notif-badge {
+  position: absolute; top: -4px; right: -4px;
+  width: 16px; height: 16px;
+  background: var(--red);
+  border-radius: 50%; font-size: 9px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+}
+.topbar-time { font-size: 12px; color: var(--muted); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE TWEAKS
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(2,1fr); }
+  .valet-grid { grid-template-columns: repeat(2,1fr); }
+  .two-col, .three-col, .billing-summary { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">ParkSmart</div>
-    <button class="btn" onclick="openAccessPopup()">Get Access →</button>
-</header>
+<!-- ═══════════════════════════════
+  LANDING PAGE
+═══════════════════════════════ -->
+<div id="landingPage" class="page active">
+  <header class="landing-header">
+    <div class="logo">Park<span>Smart</span></div>
+    <button class="btn-primary" onclick="openModal('accessModal')">Get Access →</button>
+  </header>
+  <div class="header-divider"></div>
 
-<!-- ① Line below header -->
-<div class="header-line"></div>
-
-<div class="center">
-    <div class="live-box">
-        <div class="dot"></div>
-        <span>Live System — Real-Time Parking Management</span>
+  <div class="landing-hero">
+    <div class="live-pill">
+      <div class="pulse-dot"></div>
+      Live System — Real-Time Parking Management
     </div>
 
-    <div class="title">
-        Smart<br>
-        Parking for<br>
-        <span class="gradient">Modern</span><br>
-        <span class="gradient">Facilities</span>
+    <div class="hero-title">
+      Smart Parking<br>for <span class="accent">Modern</span><br><span class="accent">Facilities</span>
     </div>
 
-    <div class="subtitle">
-        Complete end-to-end parking management with real-time slot tracking, automated billing, valet reservations, and deep analytics — all in one system.
+    <p class="hero-sub">
+      Complete end-to-end mall parking management with real-time slot tracking, automated billing, valet coordination, and deep analytics — all in one system.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="openModal('bookModal')">🅿 Book a Slot</button>
+      <button class="btn-secondary" onclick="openModal('accessModal')">Staff / Admin Access →</button>
     </div>
 
-    <div class="book-btn">
-        <button class="btn" onclick="openPopup()">Book Slot</button>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num">240</div>
+        <div class="stat-label">Total Slots</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="liveAvail">87</div>
+        <div class="stat-label">Available Now</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Active Zones</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Operations</div>
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- ② Get Access Popup — radio cards -->
-<div class="popup" id="accessPopup">
-    <div class="popup-content">
-        <div class="close" onclick="closeAccessPopup()">&times;</div>
-        <h3>Select User Type</h3>
-
-        <div class="role-group">
-            <label class="role-card" onclick="selectRole(this)">
-                <input type="radio" name="userRole" value="Valet">
-                <span class="role-icon">🚗</span>
-                <span class="role-label">Valet</span>
-            </label>
-            <label class="role-card" onclick="selectRole(this)">
-                <input type="radio" name="userRole" value="Staff">
-                <span class="role-icon">👷</span>
-                <span class="role-label">Staff</span>
-            </label>
-            <label class="role-card" onclick="selectRole(this)">
-                <input type="radio" name="userRole" value="Admin">
-                <span class="role-icon">🧑‍💼</span>
-                <span class="role-label">Admin</span>
-            </label>
-             <label class="role-card" onclick="selectRole(this)">
-                <input type="radio" name="userRole" value="User">
-                <span class="role-icon">👤</span>
-                <span class="role-label">User</span>
-            </label>
+<!-- ═══════════════════════════════
+  ACCESS MODAL
+═══════════════════════════════ -->
+<div class="overlay" id="accessModal">
+  <div class="modal">
+    <div class="modal-close" onclick="closeModal('accessModal')">×</div>
+    <h3>Who are you?</h3>
+    <div class="role-cards">
+      <label class="role-card" onclick="selectRole(this, 'Valet')">
+        <input type="radio" name="role" value="Valet">
+        <span class="role-icon">🚗</span>
+        <div class="role-info">
+          <div class="role-name">Valet</div>
+          <div class="role-desc">Manage vehicle pickups & deliveries</div>
         </div>
-
-        <button class="btn" id="continueBtn" onclick="goToAuth()" disabled>Continue →</button>
+      </label>
+      <label class="role-card" onclick="selectRole(this, 'Staff')">
+        <input type="radio" name="role" value="Staff">
+        <span class="role-icon">👷</span>
+        <div class="role-info">
+          <div class="role-name">Staff</div>
+          <div class="role-desc">Check-in/out, billing & vehicle search</div>
+        </div>
+      </label>
+      <label class="role-card" onclick="selectRole(this, 'Admin')">
+        <input type="radio" name="role" value="Admin">
+        <span class="role-icon">🛡️</span>
+        <div class="role-info">
+          <div class="role-name">Admin</div>
+          <div class="role-desc">Full analytics, settings & control</div>
+        </div>
+      </label>
     </div>
+    <button class="btn-primary" id="continueBtn" style="width:100%;opacity:0.4;cursor:not-allowed" onclick="goToAuth()" disabled>Continue →</button>
+  </div>
 </div>
 
-<!-- Book Slot Popup -->
-<div class="popup" id="popup">
-    <div class="popup-content">
-        <div class="close" onclick="closePopup()">&times;</div>
-        <h3>Select Location</h3>
-
-        <select>
-            <option>Select Locality</option>
-            <option>Chandigarh</option>
-        </select>
-
-        <select>
-            <option>Select Sector</option>
-            <option>Sector-17</option>
-            <option>Sector-22</option>
-            <option>Sector-8</option>
-            <option>Sector-34</option>
-        </select>
-
-        <button class="btn" style="margin-top:12px; width:100%">Search Slot</button>
-    </div>
+<!-- ═══════════════════════════════
+  BOOK SLOT MODAL
+═══════════════════════════════ -->
+<div class="overlay" id="bookModal">
+  <div class="modal">
+    <div class="modal-close" onclick="closeModal('bookModal')">×</div>
+    <h3>🅿 Book a Parking Slot</h3>
+    <select><option>Select Locality</option><option>Chandigarh</option></select>
+    <select id="sectorSelect"><option>Select Sector</option><option>Sector-17</option><option>Sector-22</option><option>Sector-8</option><option>Sector-34</option></select>
+    <select><option>Vehicle Type</option><option>2-Wheeler</option><option>4-Wheeler</option><option>EV (Charging)</option></select>
+    <select><option>Duration</option><option>1 Hour</option><option>2 Hours</option><option>4 Hours</option><option>Full Day</option></select>
+    <button class="btn-primary" style="width:100%;margin-top:4px" onclick="bookSlot()">Search Available Slots</button>
+  </div>
 </div>
 
-<!-- ③ Auth Page -->
+<!-- ═══════════════════════════════
+  AUTH PAGE
+═══════════════════════════════ -->
 <div id="authPage">
-    <div class="auth-card">
-        <div class="brand">ParkSmart</div>
-        <div class="role-badge" id="authRoleBadge">Valet</div>
+  <div class="auth-card">
+    <div class="auth-brand">ParkSmart</div>
+    <div class="auth-role-badge"><span id="authRoleLabel">Valet</span></div>
 
-        <div class="auth-tabs">
-            <button class="auth-tab active" onclick="switchTab('signin')">Sign In</button>
-            <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
-        </div>
-
-        <!-- Sign In -->
-        <div class="auth-form active" id="signinForm">
-            <div class="input-group">
-                <label>User ID</label>
-                <input type="text" placeholder="Enter your ID">
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" placeholder="Enter your password">
-            </div>
-            <button class="auth-submit">Sign In</button>
-        </div>
-
-        <!-- Sign Up -->
-        <div class="auth-form" id="signupForm">
-            <div class="input-group">
-                <label>Full Name</label>
-                <input type="text" placeholder="Your full name">
-            </div>
-            <div class="input-group">
-                <label>User ID</label>
-                <input type="text" placeholder="Choose a user ID">
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" placeholder="Create a password">
-            </div>
-            <button class="auth-submit">Create Account</button>
-        </div>
-
-        <div class="back-link" onclick="backToHome()">← Back to Home</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</button>
+      <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
     </div>
+
+    <div class="auth-form active" id="signinForm">
+      <div class="field"><label>User ID</label><input type="text" placeholder="Enter your ID" id="loginId"></div>
+      <div class="field"><label>Password</label><input type="password" placeholder="••••••••" id="loginPw"></div>
+      <button class="auth-submit" onclick="doLogin()">Sign In →</button>
+    </div>
+
+    <div class="auth-form" id="signupForm">
+      <div class="field"><label>Full Name</label><input type="text" placeholder="Your full name"></div>
+      <div class="field"><label>Employee ID</label><input type="text" placeholder="Assigned employee ID"></div>
+      <div class="field"><label>Password</label><input type="password" placeholder="Create a password"></div>
+      <button class="auth-submit" onclick="doLogin()">Create Account →</button>
+    </div>
+
+    <div class="back-link" onclick="backToLanding()">← Back to Home</div>
+  </div>
 </div>
+
+<!-- ═══════════════════════════════
+  DASHBOARD
+═══════════════════════════════ -->
+<div id="dashPage">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-logo">Park<span>Smart</span></div>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sideAvatar">🛡️</div>
+      <div class="user-info">
+        <div class="user-name" id="sideUserName">Admin User</div>
+        <div class="user-role" id="sideUserRole">Admin</div>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Overview</div>
+    <div class="nav-item active" onclick="showSection('slotMap', this)">
+      <span class="nav-icon">🗺️</span> Live Slot Map
+    </div>
+    <div class="nav-item" onclick="showSection('alerts', this)">
+      <span class="nav-icon">🔔</span> Alerts
+      <span class="nav-badge">3</span>
+    </div>
+
+    <div class="nav-section-label" id="nav-operations">Operations</div>
+    <div class="nav-item" id="nav-checkin" onclick="showSection('checkin', this)">
+      <span class="nav-icon">🚘</span> Check In / Out
+    </div>
+    <div class="nav-item" id="nav-valet" onclick="showSection('valet', this)">
+      <span class="nav-icon">🤝</span> Valet Tasks
+    </div>
+    <div class="nav-item" id="nav-vehicle" onclick="showSection('vehicle', this)">
+      <span class="nav-icon">🔍</span> Vehicle Search
+    </div>
+
+    <div class="nav-section-label" id="nav-fin-label">Finance</div>
+    <div class="nav-item" id="nav-billing" onclick="showSection('billing', this)">
+      <span class="nav-icon">💳</span> Billing & Records
+    </div>
+
+    <div class="nav-section-label" id="nav-admin-label" style="display:none">Admin</div>
+    <div class="nav-item" id="nav-analytics" style="display:none" onclick="showSection('analytics', this)">
+      <span class="nav-icon">📊</span> Analytics
+    </div>
+    <div class="nav-item" id="nav-settings" style="display:none" onclick="showSection('settings', this)">
+      <span class="nav-icon">⚙️</span> Settings
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="doLogout()">↩ Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div class="topbar-time" id="clockDisplay">--:-- --</div>
+      <div class="topbar-btn" onclick="toggleNotif()" title="Notifications">
+        🔔
+        <span class="notif-badge">3</span>
+      </div>
+      <div class="topbar-btn" title="Profile">👤</div>
+    </div>
+
+    <!-- ── LIVE SLOT MAP ── -->
+    <div class="dash-section active" id="sec-slotMap">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Live Slot Map</div>
+          <div class="page-subtitle">Mall Parking — Real-time occupancy</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn-primary" onclick="refreshMap()" style="font-size:12px;padding:9px 18px">↺ Refresh</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon">🟢</span><span class="kpi-badge badge-green">LIVE</span></div>
+          <div class="kpi-value" id="kpiAvail">87</div>
+          <div class="kpi-label">Available Slots</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon">🔴</span><span class="kpi-badge badge-red">LIVE</span></div>
+          <div class="kpi-value" id="kpiOcc">133</div>
+          <div class="kpi-label">Occupied Slots</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon">🟡</span><span class="kpi-badge badge-yellow">BOOKED</span></div>
+          <div class="kpi-value" id="kpiRes">14</div>
+          <div class="kpi-label">Reserved Slots</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon">📊</span><span class="kpi-badge badge-blue">TODAY</span></div>
+          <div class="kpi-value">64%</div>
+          <div class="kpi-label">Occupancy Rate</div>
+        </div>
+      </div>
+
+      <div class="slot-map-container">
+        <div class="slot-map-header">
+          <div class="slot-map-title">🏢 ParkSmart Mall — Floor B1</div>
+          <div class="slot-legend">
+            <div class="legend-item"><div class="legend-dot ld-free"></div>Free</div>
+            <div class="legend-item"><div class="legend-dot ld-occ"></div>Occupied</div>
+            <div class="legend-item"><div class="legend-dot ld-res"></div>Reserved</div>
+            <div class="legend-item"><div class="legend-dot ld-dis"></div>Disabled/EV</div>
+          </div>
+        </div>
+        <div class="zone-label">Zone A — 4-Wheeler</div>
+        <div class="slots-grid" id="zoneA"></div>
+        <div class="zone-label">Zone B — 2-Wheeler</div>
+        <div class="slots-grid" id="zoneB"></div>
+        <div class="zone-label">Zone C — EV / Disabled</div>
+        <div class="slots-grid" id="zoneC"></div>
+      </div>
+    </div>
+
+    <!-- ── ALERTS ── -->
+    <div class="dash-section" id="sec-alerts">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Alerts & Notifications</div>
+          <div class="page-subtitle">System alerts and warnings</div>
+        </div>
+      </div>
+      <div class="alert-list">
+        <div class="alert-item danger">
+          <span class="alert-icon">🔴</span>
+          <div class="alert-text">
+            <div class="alert-title">Zone A near full capacity (92%)</div>
+            <div class="alert-sub">Only 6 slots remaining in Zone A — 4-Wheeler section</div>
+          </div>
+          <span class="alert-time">2 min ago</span>
+        </div>
+        <div class="alert-item warn">
+          <span class="alert-icon">⚠️</span>
+          <div class="alert-text">
+            <div class="alert-title">Overstay detected — Slot A-12</div>
+            <div class="alert-sub">Vehicle PB10-AB-1234 has exceeded booked duration by 45 min</div>
+          </div>
+          <span class="alert-time">18 min ago</span>
+        </div>
+        <div class="alert-item warn">
+          <span class="alert-icon">⏳</span>
+          <div class="alert-text">
+            <div class="alert-title">Reservation expiring — Slot B-07</div>
+            <div class="alert-sub">Reserved slot expires in 10 minutes, no check-in yet</div>
+          </div>
+          <span class="alert-time">22 min ago</span>
+        </div>
+        <div class="alert-item info">
+          <span class="alert-icon">✅</span>
+          <div class="alert-text">
+            <div class="alert-title">Billing auto-processed — 14 vehicles</div>
+            <div class="alert-sub">Automated checkout billing completed successfully</div>
+          </div>
+          <span class="alert-time">1 hr ago</span>
+        </div>
+        <div class="alert-item info">
+          <span class="alert-icon">🔌</span>
+          <div class="alert-text">
+            <div class="alert-title">EV slot C-03 charging complete</div>
+            <div class="alert-sub">Vehicle HR26-EV-5678 has finished charging</div>
+          </div>
+          <span class="alert-time">2 hr ago</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHECK IN / OUT ── -->
+    <div class="dash-section" id="sec-checkin">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Check In / Out</div>
+          <div class="page-subtitle">Vehicle entry and exit management</div>
+        </div>
+        <button class="btn-primary" style="font-size:12px;padding:9px 18px" onclick="checkInNew()">+ New Check-In</button>
+      </div>
+      <div class="table-card">
+        <div class="table-head">
+          <div class="table-title">Active Vehicles</div>
+          <input class="search-input" placeholder="🔍  Search plate number..." oninput="filterTable(this,'checkinTable')">
+        </div>
+        <table id="checkinTable">
+          <thead><tr><th>Plate No.</th><th>Slot</th><th>Type</th><th>Entry Time</th><th>Duration</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><b>PB10-AB-1234</b></td><td>A-04</td><td>4-Wheeler</td><td>10:15 AM</td><td>2h 30m</td><td><span class="status-pill pill-red">Overstay</span></td><td><button class="action-btn red" onclick="checkOut('PB10-AB-1234','A-04')">Check Out</button></td></tr>
+            <tr><td><b>HR26-CD-5678</b></td><td>A-09</td><td>4-Wheeler</td><td>11:00 AM</td><td>1h 45m</td><td><span class="status-pill pill-green">Active</span></td><td><button class="action-btn green">Check Out</button></td></tr>
+            <tr><td><b>CH01-EF-9012</b></td><td>B-03</td><td>2-Wheeler</td><td>11:45 AM</td><td>1h 00m</td><td><span class="status-pill pill-green">Active</span></td><td><button class="action-btn green">Check Out</button></td></tr>
+            <tr><td><b>PB65-GH-3456</b></td><td>A-17</td><td>4-Wheeler</td><td>12:00 PM</td><td>45m</td><td><span class="status-pill pill-yellow">Reserved</span></td><td><button class="action-btn green">Check Out</button></td></tr>
+            <tr><td><b>DL3C-IJ-7890</b></td><td>B-11</td><td>2-Wheeler</td><td>12:20 PM</td><td>25m</td><td><span class="status-pill pill-green">Active</span></td><td><button class="action-btn green">Check Out</button></td></tr>
+            <tr><td><b>HR26-EV-5678</b></td><td>C-03</td><td>EV</td><td>09:00 AM</td><td>3h 45m</td><td><span class="status-pill pill-blue">Charging</span></td><td><button class="action-btn green">Check Out</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── VALET ── -->
+    <div class="dash-section" id="sec-valet">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Valet Tasks</div>
+          <div class="page-subtitle">Pending pickups and deliveries</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <span class="status-pill pill-yellow">4 Pending</span>
+          <span class="status-pill pill-blue">2 In Progress</span>
+        </div>
+      </div>
+
+      <div class="valet-grid">
+        <div class="valet-card">
+          <div class="valet-card-top">
+            <div class="valet-slot" style="color:var(--yellow)">A-12</div>
+            <span class="status-pill pill-yellow">Pickup</span>
+          </div>
+          <div class="valet-plate">PB10-AB-1234</div>
+          <div class="valet-time">Requested 5 min ago · 4-Wheeler</div>
+          <button class="valet-action va-pickup">Accept Pickup</button>
+        </div>
+        <div class="valet-card">
+          <div class="valet-card-top">
+            <div class="valet-slot" style="color:var(--blue)">B-07</div>
+            <span class="status-pill pill-blue">Delivery</span>
+          </div>
+          <div class="valet-plate">HR26-CD-5678</div>
+          <div class="valet-time">In progress · 2-Wheeler · Bay 2</div>
+          <button class="valet-action va-deliver">Mark Delivered</button>
+        </div>
+        <div class="valet-card">
+          <div class="valet-card-top">
+            <div class="valet-slot" style="color:var(--yellow)">A-22</div>
+            <span class="status-pill pill-yellow">Pickup</span>
+          </div>
+          <div class="valet-plate">CH01-EF-9012</div>
+          <div class="valet-time">Requested 12 min ago · 4-Wheeler</div>
+          <button class="valet-action va-pickup">Accept Pickup</button>
+        </div>
+        <div class="valet-card">
+          <div class="valet-card-top">
+            <div class="valet-slot" style="color:var(--green)">A-05</div>
+            <span class="status-pill pill-green">Park</span>
+          </div>
+          <div class="valet-plate">PB65-GH-3456</div>
+          <div class="valet-time">New arrival · 4-Wheeler</div>
+          <button class="valet-action va-pickup">Accept Park</button>
+        </div>
+        <div class="valet-card">
+          <div class="valet-card-top">
+            <div class="valet-slot" style="color:var(--yellow)">B-14</div>
+            <span class="status-pill pill-yellow">Pickup</span>
+          </div>
+          <div class="valet-plate">DL3C-IJ-7890</div>
+          <div class="valet-time">Requested 2 min ago · 2-Wheeler</div>
+          <button class="valet-action va-pickup">Accept Pickup</button>
+        </div>
+        <div class="valet-card">
+          <div class="valet-card-top">
+            <div class="valet-slot" style="color:var(--blue)">A-19</div>
+            <span class="status-pill pill-blue">Delivery</span>
+          </div>
+          <div class="valet-plate">MH12-KL-2345</div>
+          <div class="valet-time">In progress · 4-Wheeler · Bay 1</div>
+          <button class="valet-action va-deliver">Mark Delivered</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── VEHICLE SEARCH ── -->
+    <div class="dash-section" id="sec-vehicle">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Vehicle Search</div>
+          <div class="page-subtitle">Look up any vehicle by plate number</div>
+        </div>
+      </div>
+
+      <div class="search-hero">
+        <h2>🔍 Find a Vehicle</h2>
+        <p>Enter a plate number to view current slot, billing status, and visit history</p>
+        <div class="search-bar">
+          <input type="text" id="plateInput" placeholder="e.g. PB10-AB-1234" oninput="this.value=this.value.toUpperCase()">
+          <button class="btn-primary" onclick="searchVehicle()">Search</button>
+        </div>
+      </div>
+
+      <div class="vehicle-profile" id="vehicleProfile">
+        <div class="vp-header">
+          <div class="vp-icon">🚗</div>
+          <div>
+            <div class="vp-plate" id="vpPlate">PB10-AB-1234</div>
+            <div class="vp-meta">4-Wheeler · Slot A-04 · <span style="color:var(--red)">Overstay — 45 min</span></div>
+          </div>
+          <div style="margin-left:auto">
+            <span class="status-pill pill-red">Currently Parked</span>
+          </div>
+        </div>
+        <div class="vp-grid">
+          <div class="vp-stat"><div class="vp-stat-val" style="color:var(--green)">A-04</div><div class="vp-stat-label">Current Slot</div></div>
+          <div class="vp-stat"><div class="vp-stat-val">10:15 AM</div><div class="vp-stat-label">Entry Time</div></div>
+          <div class="vp-stat"><div class="vp-stat-val" style="color:var(--red)">2h 30m</div><div class="vp-stat-label">Duration</div></div>
+          <div class="vp-stat"><div class="vp-stat-val" style="color:var(--yellow)">₹120</div><div class="vp-stat-label">Amount Due</div></div>
+        </div>
+        <div style="margin-top:20px">
+          <div class="table-title" style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px">Visit History</div>
+          <table>
+            <thead><tr><th>Date</th><th>Entry</th><th>Exit</th><th>Duration</th><th>Slot</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>07 Apr 2026</td><td>10:15 AM</td><td>—</td><td>Active</td><td>A-04</td><td>₹120</td><td><span class="status-pill pill-red">Unpaid</span></td></tr>
+              <tr><td>05 Apr 2026</td><td>02:00 PM</td><td>04:30 PM</td><td>2h 30m</td><td>A-11</td><td>₹100</td><td><span class="status-pill pill-green">Paid</span></td></tr>
+              <tr><td>01 Apr 2026</td><td>11:00 AM</td><td>01:00 PM</td><td>2h 00m</td><td>B-06</td><td>₹80</td><td><span class="status-pill pill-green">Paid</span></td></tr>
+              <tr><td>28 Mar 2026</td><td>03:30 PM</td><td>05:00 PM</td><td>1h 30m</td><td>A-08</td><td>₹60</td><td><span class="status-pill pill-green">Paid</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BILLING ── -->
+    <div class="dash-section" id="sec-billing">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Billing & Records</div>
+          <div class="page-subtitle">Revenue, invoices and payment tracking</div>
+        </div>
+      </div>
+      <div class="billing-summary">
+        <div class="bill-kpi">
+          <div class="bill-kpi-val" style="color:var(--green)">₹18,240</div>
+          <div class="bill-kpi-label">Today's Revenue</div>
+        </div>
+        <div class="bill-kpi">
+          <div class="bill-kpi-val" style="color:var(--yellow)">₹2,160</div>
+          <div class="bill-kpi-label">Pending Payments</div>
+        </div>
+        <div class="bill-kpi">
+          <div class="bill-kpi-val" style="color:var(--blue)">₹3,84,000</div>
+          <div class="bill-kpi-label">Monthly Revenue</div>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-head">
+          <div class="table-title">Recent Transactions</div>
+          <input class="search-input" placeholder="🔍  Search plate / slot...">
+        </div>
+        <table>
+          <thead><tr><th>Invoice</th><th>Plate No.</th><th>Slot</th><th>Duration</th><th>Amount</th><th>Time</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>#INV-1042</td><td><b>MH12-KL-2345</b></td><td>A-19</td><td>3h 00m</td><td>₹120</td><td>12:45 PM</td><td><span class="status-pill pill-green">Paid</span></td></tr>
+            <tr><td>#INV-1041</td><td><b>PB10-AB-1234</b></td><td>A-04</td><td>2h 30m</td><td>₹120</td><td>12:30 PM</td><td><span class="status-pill pill-red">Unpaid</span></td></tr>
+            <tr><td>#INV-1040</td><td><b>HR26-CD-5678</b></td><td>A-09</td><td>1h 45m</td><td>₹70</td><td>12:10 PM</td><td><span class="status-pill pill-green">Paid</span></td></tr>
+            <tr><td>#INV-1039</td><td><b>CH01-EF-9012</b></td><td>B-03</td><td>1h 00m</td><td>₹30</td><td>11:50 AM</td><td><span class="status-pill pill-green">Paid</span></td></tr>
+            <tr><td>#INV-1038</td><td><b>DL3C-IJ-7890</b></td><td>B-11</td><td>2h 15m</td><td>₹70</td><td>11:20 AM</td><td><span class="status-pill pill-yellow">Waived</span></td></tr>
+            <tr><td>#INV-1037</td><td><b>RJ14-MN-6789</b></td><td>A-02</td><td>4h 00m</td><td>₹160</td><td>10:55 AM</td><td><span class="status-pill pill-green">Paid</span></td></tr>
+            <tr><td>#INV-1036</td><td><b>UP32-OP-1234</b></td><td>C-01</td><td>3h 30m</td><td>₹140</td><td>10:30 AM</td><td><span class="status-pill pill-green">Paid</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── ANALYTICS (Admin only) ── -->
+    <div class="dash-section" id="sec-analytics">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Analytics</div>
+          <div class="page-subtitle">Occupancy trends and revenue insights</div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon">📈</span><span class="kpi-badge badge-green">+12%</span></div>
+          <div class="kpi-value">₹3.84L</div>
+          <div class="kpi-label">Monthly Revenue</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon">🚗</span><span class="kpi-badge badge-blue">+8%</span></div>
+          <div class="kpi-value">4,210</div>
+          <div class="kpi-label">Monthly Vehicles</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon">⏱️</span><span class="kpi-badge badge-yellow">AVG</span></div>
+          <div class="kpi-value">1h 48m</div>
+          <div class="kpi-label">Avg. Stay Duration</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon">💰</span><span class="kpi-badge badge-green">+5%</span></div>
+          <div class="kpi-value">₹91</div>
+          <div class="kpi-label">Avg. Revenue / Car</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="chart-card">
+          <div class="chart-title">Hourly Occupancy — Today</div>
+          <div class="bar-chart" id="occupancyChart"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Daily Revenue — This Week</div>
+          <div class="bar-chart" id="revenueChart"></div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="table-card" style="margin-top:0">
+          <div class="table-head"><div class="table-title">Top Vehicles by Visits</div></div>
+          <table>
+            <thead><tr><th>Plate No.</th><th>Visits</th><th>Total Spent</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr><td><b>PB10-AB-1234</b></td><td>42</td><td>₹3,780</td><td>4-Wheeler</td></tr>
+              <tr><td><b>HR26-CD-5678</b></td><td>38</td><td>₹3,420</td><td>4-Wheeler</td></tr>
+              <tr><td><b>CH01-EF-9012</b></td><td>31</td><td>₹1,550</td><td>2-Wheeler</td></tr>
+              <tr><td><b>PB65-GH-3456</b></td><td>28</td><td>₹2,520</td><td>4-Wheeler</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="chart-card" style="margin-top:0">
+          <div class="chart-title">Zone Utilization</div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span>Zone A — 4-Wheeler</span><span style="color:var(--red);font-weight:700">92%</span></div>
+              <div style="height:8px;background:var(--surface2);border-radius:4px"><div style="height:100%;width:92%;background:var(--red);border-radius:4px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span>Zone B — 2-Wheeler</span><span style="color:var(--yellow);font-weight:700">58%</span></div>
+              <div style="height:8px;background:var(--surface2);border-radius:4px"><div style="height:100%;width:58%;background:var(--yellow);border-radius:4px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span>Zone C — EV / Disabled</span><span style="color:var(--blue);font-weight:700">33%</span></div>
+              <div style="height:8px;background:var(--surface2);border-radius:4px"><div style="height:100%;width:33%;background:var(--blue);border-radius:4px"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS (Admin only) ── -->
+    <div class="dash-section" id="sec-settings">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Settings</div>
+          <div class="page-subtitle">Configure parking rates, zones, and system preferences</div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="table-card">
+          <div class="table-head"><div class="table-title">Parking Rates</div></div>
+          <table>
+            <thead><tr><th>Vehicle Type</th><th>Rate / Hour</th><th>Max / Day</th></tr></thead>
+            <tbody>
+              <tr><td>4-Wheeler</td><td>₹40 / hr</td><td>₹320</td></tr>
+              <tr><td>2-Wheeler</td><td>₹20 / hr</td><td>₹160</td></tr>
+              <tr><td>EV (Charging)</td><td>₹50 / hr</td><td>₹400</td></tr>
+              <tr><td>Monthly Pass</td><td colspan="2">₹2,400 / month</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-card">
+          <div class="table-head"><div class="table-title">Zone Configuration</div></div>
+          <table>
+            <thead><tr><th>Zone</th><th>Capacity</th><th>Type</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Zone A</td><td>120 slots</td><td>4-Wheeler</td><td><span class="status-pill pill-red">Near Full</span></td></tr>
+              <tr><td>Zone B</td><td>80 slots</td><td>2-Wheeler</td><td><span class="status-pill pill-green">Normal</span></td></tr>
+              <tr><td>Zone C</td><td>40 slots</td><td>EV / Disabled</td><td><span class="status-pill pill-green">Normal</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main-content -->
+</div><!-- end dashPage -->
+
+<!-- Notification Panel -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    <div class="notif-title">Notifications</div>
+    <div class="modal-close" onclick="toggleNotif()">×</div>
+  </div>
+  <div class="notif-list">
+    <div class="notif-item danger">
+      <div class="notif-item-title">🔴 Zone A near capacity</div>
+      <div class="notif-item-body">Only 6 slots remaining in Zone A</div>
+      <div class="notif-item-time">2 min ago</div>
+    </div>
+    <div class="notif-item warn">
+      <div class="notif-item-title">⚠️ Overstay — Slot A-12</div>
+      <div class="notif-item-body">Vehicle PB10-AB-1234 exceeded duration by 45 min</div>
+      <div class="notif-item-time">18 min ago</div>
+    </div>
+    <div class="notif-item warn">
+      <div class="notif-item-title">⏳ Reservation expiring — B-07</div>
+      <div class="notif-item-body">Reserved slot expires in 10 minutes</div>
+      <div class="notif-item-time">22 min ago</div>
+    </div>
+    <div class="notif-item">
+      <div class="notif-item-title">✅ Auto-billing complete</div>
+      <div class="notif-item-body">14 vehicles billed successfully</div>
+      <div class="notif-item-time">1 hr ago</div>
+    </div>
+  </div>
+</div>
+
+<!-- Slot tooltip -->
+<div class="slot-tooltip" id="slotTooltip"></div>
 
 <script>
-function openPopup() { document.getElementById('popup').style.display = 'flex'; }
-function closePopup() { document.getElementById('popup').style.display = 'none'; }
+/* ══════════════════════════════
+   STATE
+══════════════════════════════ */
+let currentRole = '';
 
-function openAccessPopup() { document.getElementById('accessPopup').style.display = 'flex'; }
-function closeAccessPopup() {
-    document.getElementById('accessPopup').style.display = 'none';
-    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
-    document.querySelectorAll('input[name="userRole"]').forEach(r => r.checked = false);
-    document.getElementById('continueBtn').disabled = true;
+/* ══════════════════════════════
+   MODAL
+══════════════════════════════ */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.querySelectorAll('.overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+/* ══════════════════════════════
+   ROLE SELECTION
+══════════════════════════════ */
+function selectRole(card, role) {
+  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  card.querySelector('input').checked = true;
+  currentRole = role;
+  const btn = document.getElementById('continueBtn');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.style.cursor = 'pointer';
 }
 
-// ② Only 1 role selectable at a time
-function selectRole(card) {
-    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    card.querySelector('input[type="radio"]').checked = true;
-    document.getElementById('continueBtn').disabled = false;
-}
-
-// ③ Transition to auth page
+/* ══════════════════════════════
+   AUTH
+══════════════════════════════ */
 function goToAuth() {
-    const selected = document.querySelector('input[name="userRole"]:checked');
-    if (!selected) return;
-    document.getElementById('authRoleBadge').textContent = selected.value;
-    closeAccessPopup();
-    document.getElementById('authPage').style.display = 'flex';
-    switchTab('signin');
+  if (!currentRole) return;
+  closeModal('accessModal');
+  document.getElementById('authRoleLabel').textContent = currentRole;
+  showPage('authPage');
 }
 
-function backToHome() {
-    document.getElementById('authPage').style.display = 'none';
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((t,i) =>
+    t.classList.toggle('active', (i===0&&tab==='signin')||(i===1&&tab==='signup'))
+  );
+  document.getElementById('signinForm').classList.toggle('active', tab==='signin');
+  document.getElementById('signupForm').classList.toggle('active', tab==='signup');
 }
 
-function switchTab(tab) {
-    document.querySelectorAll('.auth-tab').forEach((t, i) => {
-        t.classList.toggle('active', (i === 0 && tab === 'signin') || (i === 1 && tab === 'signup'));
-    });
-    document.getElementById('signinForm').classList.toggle('active', tab === 'signin');
-    document.getElementById('signupForm').classList.toggle('active', tab === 'signup');
+function doLogin() {
+  setupDashboard(currentRole);
+  showPage('dashPage');
 }
+
+function backToLanding() { showPage('landingPage'); }
+
+function doLogout() { showPage('landingPage'); }
+
+/* ══════════════════════════════
+   PAGE SWITCHING
+══════════════════════════════ */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // landing, authPage, dashPage are special
+  ['landingPage','authPage','dashPage'].forEach(pid => {
+    const el = document.getElementById(pid);
+    if (pid === id) {
+      el.classList.add('active');
+      if (pid === 'dashPage') el.style.display = 'flex';
+      else if (pid === 'authPage') el.style.display = 'flex';
+      else el.style.display = 'block';
+    } else {
+      el.classList.remove('active');
+      el.style.display = 'none';
+    }
+  });
+}
+
+// init
+document.getElementById('landingPage').style.display = 'block';
+document.getElementById('authPage').style.display = 'none';
+document.getElementById('dashPage').style.display = 'none';
+
+/* ══════════════════════════════
+   DASHBOARD SETUP PER ROLE
+══════════════════════════════ */
+const roleConfig = {
+  Valet: { icon: '🚗', nav: ['nav-valet','nav-vehicle'], hideAdmin: true, hideBilling: false },
+  Staff: { icon: '👷', nav: ['nav-checkin','nav-vehicle','nav-billing'], hideAdmin: true, hideBilling: false },
+  Admin: { icon: '🛡️', nav: ['nav-checkin','nav-valet','nav-vehicle','nav-billing','nav-analytics','nav-settings'], hideAdmin: false, hideBilling: false },
+};
+
+function setupDashboard(role) {
+  const cfg = roleConfig[role] || roleConfig.Admin;
+  document.getElementById('sideAvatar').textContent = cfg.icon;
+  document.getElementById('sideUserName').textContent = role + ' User';
+  document.getElementById('sideUserRole').textContent = role;
+
+  // Show/hide nav items based on role
+  ['nav-checkin','nav-valet','nav-vehicle','nav-billing','nav-analytics','nav-settings'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = cfg.nav.includes(id) ? 'flex' : 'none';
+  });
+  // Admin section label
+  const adminLabel = document.getElementById('nav-admin-label');
+  adminLabel.style.display = cfg.hideAdmin ? 'none' : 'block';
+  if (!cfg.hideAdmin) {
+    document.getElementById('nav-analytics').style.display = 'flex';
+    document.getElementById('nav-settings').style.display = 'flex';
+  }
+
+  // Show first relevant section
+  const firstSection = role === 'Valet' ? 'valet' : 'slotMap';
+  const firstNav = document.querySelector(`.nav-item[onclick*="${firstSection}"]`) || document.querySelector('.nav-item');
+  showSection(firstSection, firstNav);
+  buildCharts();
+  startClock();
+}
+
+/* ══════════════════════════════
+   SECTION SWITCHING
+══════════════════════════════ */
+function showSection(name, navEl) {
+  document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (navEl) navEl.classList.add('active');
+}
+
+/* ══════════════════════════════
+   SLOT MAP GENERATION
+══════════════════════════════ */
+const slotStates = { A: [], B: [], C: [] };
+
+function randomSlotState(bias) {
+  const r = Math.random();
+  if (bias === 'crowded') {
+    if (r < 0.65) return 'occupied';
+    if (r < 0.80) return 'reserved';
+    return 'free';
+  }
+  if (r < 0.48) return 'occupied';
+  if (r < 0.60) return 'reserved';
+  return 'free';
+}
+
+const slotData = {
+  'PB10-AB-1234': { slot:'A-04', type:'4-Wheeler', entry:'10:15 AM', duration:'2h 30m' },
+  'HR26-CD-5678': { slot:'A-09', type:'4-Wheeler', entry:'11:00 AM', duration:'1h 45m' },
+  'CH01-EF-9012': { slot:'B-03', type:'2-Wheeler', entry:'11:45 AM', duration:'1h 00m' },
+  'HR26-EV-5678': { slot:'C-03', type:'EV', entry:'09:00 AM', duration:'3h 45m' },
+};
+
+function buildZone(zoneId, prefix, count, type, bias, hasDisabled) {
+  const container = document.getElementById(zoneId);
+  container.innerHTML = '';
+  slotStates[prefix.replace('-','')] = [];
+  for (let i = 1; i <= count; i++) {
+    const num = prefix + String(i).padStart(2,'0');
+    let state = i <= 2 && hasDisabled ? 'disabled' : randomSlotState(bias);
+    slotStates[prefix.replace('-','').replace('C','C')] = slotStates[prefix.replace('-','').replace('C','C')] || [];
+
+    const slot = document.createElement('div');
+    slot.className = 'slot ' + state;
+    slot.innerHTML = `<span class="slot-num">${num}</span><span class="slot-type">${type}</span>`;
+    slot.dataset.slot = num;
+    slot.dataset.state = state;
+
+    slot.addEventListener('mousemove', (e) => showTooltip(e, num, state, type));
+    slot.addEventListener('mouseleave', hideTooltip);
+    slot.addEventListener('click', () => handleSlotClick(num, state));
+
+    container.appendChild(slot);
+  }
+}
+
+function buildMap() {
+  buildZone('zoneA', 'A-', 40, '4W', 'crowded', false);
+  buildZone('zoneB', 'B-', 30, '2W', 'normal', false);
+  buildZone('zoneC', 'C-', 12, 'EV', 'normal', true);
+}
+
+function refreshMap() {
+  buildMap();
+  updateKPIs();
+}
+
+function updateKPIs() {
+  let free=0, occ=0, res=0;
+  document.querySelectorAll('.slot').forEach(s => {
+    if(s.classList.contains('free')) free++;
+    else if(s.classList.contains('occupied')) occ++;
+    else if(s.classList.contains('reserved')) res++;
+  });
+  document.getElementById('kpiAvail').textContent = free;
+  document.getElementById('kpiOcc').textContent = occ;
+  document.getElementById('kpiRes').textContent = res;
+  document.getElementById('liveAvail').textContent = free;
+}
+
+function showTooltip(e, num, state, type) {
+  const tooltip = document.getElementById('slotTooltip');
+  const plateMap = {
+    'A-04': 'PB10-AB-1234', 'A-09': 'HR26-CD-5678',
+    'B-03': 'CH01-EF-9012', 'C-03': 'HR26-EV-5678'
+  };
+  const entryMap = { 'A-04':'10:15 AM','A-09':'11:00 AM','B-03':'11:45 AM','C-03':'09:00 AM' };
+  const plate = plateMap[num] || (state === 'occupied' ? 'PB-XX-0000' : '—');
+  const entry = entryMap[num] || (state === 'occupied' ? '—' : '—');
+  const stateLabel = state === 'free' ? '✅ Available' : state === 'occupied' ? '🔴 Occupied' : state === 'reserved' ? '🟡 Reserved' : '🔵 EV/Disabled';
+
+  tooltip.innerHTML = `
+    <div class="tooltip-row"><span class="tooltip-key">Slot</span><span class="tooltip-val">${num}</span></div>
+    <div class="tooltip-row"><span class="tooltip-key">Status</span><span class="tooltip-val">${stateLabel}</span></div>
+    <div class="tooltip-row"><span class="tooltip-key">Type</span><span class="tooltip-val">${type}</span></div>
+    ${state!=='free'&&state!=='disabled'?`<div class="tooltip-row"><span class="tooltip-key">Plate</span><span class="tooltip-val">${plate}</span></div>`:''}
+    ${entry!=='—'?`<div class="tooltip-row"><span class="tooltip-key">Entry</span><span class="tooltip-val">${entry}</span></div>`:''}
+  `;
+  tooltip.style.left = (e.clientX + 14) + 'px';
+  tooltip.style.top  = (e.clientY - 10) + 'px';
+  tooltip.classList.add('visible');
+}
+
+function hideTooltip() {
+  document.getElementById('slotTooltip').classList.remove('visible');
+}
+
+function handleSlotClick(num, state) {
+  if (state === 'free') {
+    alert(`Slot ${num} is available.\nAssign or reserve this slot?`);
+  } else if (state === 'occupied') {
+    alert(`Slot ${num} is occupied.\nInitiate check-out?`);
+  }
+}
+
+/* ══════════════════════════════
+   CHARTS
+══════════════════════════════ */
+function buildCharts() {
+  const occ = [22,35,48,60,72,85,92,88,75,64,58,52];
+  const hrs = ['8A','9A','10A','11A','12P','1P','2P','3P','4P','5P','6P','7P'];
+  const rev = [12400,18600,22300,19800,24100,21500,18200];
+  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  buildBarChart('occupancyChart', occ, hrs, false);
+  buildBarChart('revenueChart', rev.map(v=>Math.round(v/1000)), days, true);
+}
+
+function buildBarChart(id, vals, labels, isRev) {
+  const container = document.getElementById(id);
+  if (!container) return;
+  container.innerHTML = '';
+  const max = Math.max(...vals);
+  vals.forEach((v, i) => {
+    const group = document.createElement('div');
+    group.className = 'bar-group';
+    const pct = Math.round((v/max)*100);
+    group.innerHTML = `
+      <div class="${isRev?'rev-bar-val':'bar-val'} bar-val" style="font-size:9px;font-weight:700;color:${isRev?'var(--blue)':'var(--green)'}">${isRev?'₹'+v+'K':v+'%'}</div>
+      <div class="bar ${isRev?'rev-bar':''}" style="height:${pct}%"></div>
+      <div class="bar-label">${labels[i]}</div>
+    `;
+    container.appendChild(group);
+  });
+}
+
+/* ══════════════════════════════
+   VEHICLE SEARCH
+══════════════════════════════ */
+function searchVehicle() {
+  const plate = document.getElementById('plateInput').value.trim();
+  if (!plate) return;
+  const profile = document.getElementById('vehicleProfile');
+  profile.classList.add('visible');
+  document.getElementById('vpPlate').textContent = plate;
+}
+
+/* ══════════════════════════════
+   CHECKIN ACTIONS
+══════════════════════════════ */
+function checkOut(plate, slot) {
+  const dur = '2h 30m';
+  const amt = '₹120';
+  alert(`Check-Out Summary\n\nPlate: ${plate}\nSlot: ${slot}\nDuration: ${dur}\nAmount Due: ${amt}\n\nConfirm checkout?`);
+}
+
+function checkInNew() {
+  const plate = prompt('Enter vehicle plate number:');
+  if (plate) alert(`Vehicle ${plate.toUpperCase()} checked in successfully.\nAssigned to next available slot.`);
+}
+
+function bookSlot() {
+  const sector = document.getElementById('sectorSelect').value;
+  if (sector === 'Select Sector') { alert('Please select a sector.'); return; }
+  closeModal('bookModal');
+  alert(`Booking confirmed! ✅\nSector: ${sector}\nSlot: A-${Math.floor(Math.random()*20+1)}\nBooking ID: #BK-${Math.floor(Math.random()*9000+1000)}`);
+}
+
+/* ══════════════════════════════
+   TABLE FILTER
+══════════════════════════════ */
+function filterTable(input, tableId) {
+  const q = input.value.toLowerCase();
+  document.querySelectorAll(`#${tableId} tbody tr`).forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+/* ══════════════════════════════
+   NOTIFICATIONS
+══════════════════════════════ */
+function toggleNotif() {
+  document.getElementById('notifPanel').classList.toggle('open');
+}
+
+/* ══════════════════════════════
+   CLOCK
+══════════════════════════════ */
+function startClock() {
+  function tick() {
+    const now = new Date();
+    const h = now.getHours(), m = now.getMinutes();
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hh = h % 12 || 12;
+    const mm = String(m).padStart(2,'0');
+    document.getElementById('clockDisplay').textContent = `${hh}:${mm} ${ampm}`;
+  }
+  tick();
+  setInterval(tick, 10000);
+}
+
+/* ══════════════════════════════
+   INIT MAP
+══════════════════════════════ */
+buildMap();
+updateKPIs();
 </script>
-
 </body>
 </html>
