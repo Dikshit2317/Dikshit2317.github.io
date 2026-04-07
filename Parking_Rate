@@ -1,0 +1,8 @@
+INSERT INTO Parking_Rate VALUES (1, 'Sector 17 CBD', 50);
+INSERT INTO Parking_Rate VALUES (2, 'Sector 22 Market', 40);
+INSERT INTO Parking_Rate VALUES (3, 'Sector 35 Commercial', 35);
+INSERT INTO Parking_Rate VALUES (4, 'ISBT Sector 43', 30);
+INSERT INTO Parking_Rate VALUES (5, 'PGI Hospital Zone', 25);
+INSERT INTO Parking_Rate VALUES (6, 'Elante Mall Area', 45);
+INSERT INTO Parking_Rate VALUES (7, 'Sector 8 Residential', 20);
+INSERT INTO Parking_Rate VALUES (8, 'Sukhna Lake Tourism', 40);
